@@ -7,9 +7,11 @@ const { adminprotected, userProtected } = require("./middleware/protected.middle
 require("dotenv").config()
 
 
+
 const app = express()
 app.use(express.json()) // req.body
 app.use(cookieParser()) // req.cookies
+app.use(express.static("dist"))
 app.use(cors({
     origin: true,
     credentials: true // cookie
@@ -26,6 +28,9 @@ app.use("/api/public", require("./routes/public.routes"))
 
 app.use("*", (req, res) => {
     res.status(404).json({ message: "resource not found" })
+})
+app.use("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"))
 })
 
 mongoose.connect(process.env.MONGO_URL)
