@@ -110,15 +110,8 @@ exports.placeOrder = async (req, res) => {
             user: req.loggedInUser,
             products: req.body.products,
         })
-        // const productIds = req.body.products;
         const product_id = req.body.products;
 
-        // for (let i = 0; i < productIds.length; i++) {
-        //     await Product.updateOne(
-        //         { _id: productIds[i] },  // Find product by its ID
-        //         { $set: { isSold: true } }  // Set 'isSold' to true
-        //     );
-        // }
 
         await Product.findByIdAndUpdate(
             product_id,  // Find product by its ID
